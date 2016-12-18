@@ -12,4 +12,5 @@
     <string name="search">Search</string>
     <string name="please_try_again">Please try again</string>
     <string name="select_state">Select State</string>
+    <string name="title_activity_shop_list">ShopListActivity</string>
 </resources>

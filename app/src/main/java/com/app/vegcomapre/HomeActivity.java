@@ -2,6 +2,7 @@ package com.app.vegcomapre;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -31,6 +32,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.app.vegcomapre.utility.AppConstants.AREA;
+import static com.app.vegcomapre.utility.AppConstants.CITY;
+import static com.app.vegcomapre.utility.AppConstants.STATE;
 import static com.app.vegcomapre.utility.AppConstants.SUCESS;
 
 public class HomeActivity extends AppCompatActivity
@@ -124,68 +128,21 @@ public class HomeActivity extends AppCompatActivity
                     Utility.alerDialog(this, this.getResources().getString(R.string.select_area));
                     return;
                 }
-                
-                callSerachShops();
+
+                Intent intent = new Intent(this,ShopListActivity.class);
+                intent.putExtra(STATE,mStateList.get(selectStateIndex).getState_id());
+                intent.putExtra(CITY,mCityList.get(selectCityIndex).getCity_id());
+                intent.putExtra(AREA,mAreaList.get(selectAreaIndex).getArea_id());
+
+                startActivity(intent);
+
+
+
+
                 break;
 
 
         }
-    }
-
-    private void callSerachShops() {
-
-        ConnectWebService connectWebService = new ConnectWebService();
-
-        connectWebService.setOnServerResponse(new ServerResponseInterface() {
-
-            @Override
-            public void setLoading(boolean value) {
-
-
-            }
-
-            @Override
-            public void onServerResponse(String response) {
-
-
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    String status = jsonObject.getString("status");
-                    JSONArray jsonArray=jsonObject.getJSONArray("data");
-                    if (status.equals(SUCESS)) {
-
-                        Gson gson = new Gson();
-                        mStateList = (ArrayList<State>) gson.fromJson(jsonArray.toString(), new TypeToken<ArrayList<State>>() {
-                        }.getType());
-
-                        showStateList();
-
-                    } else {
-                        Utility.alerDialog(HomeActivity.this, HomeActivity.this.getResources().getString(R.string.please_try_again));
-                    }
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-
-            @Override
-            public void onServerError(String s) {
-                Utility.alerDialog(HomeActivity.this, HomeActivity.this.getResources().getString(R.string.please_try_again));
-
-
-            }
-
-        });
-
-        Map<String, String> param = new HashMap<>();
-        connectWebService.setLoadingMessage("Please wait...");
-        connectWebService.stringPostRequest(Config.SEARCH_SHOP_LIST, this, param, true);
-
-
-
     }
 
 
