@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">VegComapre</string>
+    <string name="app_name">Taazaprice</string>
     <string name="title_activity_home">HomeActivity</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -13,4 +13,12 @@
     <string name="please_try_again">Please try again</string>
     <string name="select_state">Select State</string>
     <string name="title_activity_shop_list">ShopListActivity</string>
+    <string name="title_activity_price_list">PriceListActivity</string>
+    <string name="compare">Compare</string>
+    <string name="title_activity_comapare_price">ComaparePriceActivity</string>
+    <string name="api_key">ComaparePriceActivity</string>
+    <!--<string name="addmob_key">D300344CE1C7255964EBDC4C7B521120</string>-->
+    <string name="addmob_key">ca-app-pub-7301685186086751/9738151823</string>
+    <string name="refersh">Refresh</string>
+
 </resources>
