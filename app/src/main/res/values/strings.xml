@@ -20,5 +20,6 @@
     <!--<string name="addmob_key">D300344CE1C7255964EBDC4C7B521120</string>-->
     <string name="addmob_key">ca-app-pub-7301685186086751/9738151823</string>
     <string name="refersh">Refresh</string>
+    <string name="not_found">Shops not added. Search for other location</string>
 
 </resources>

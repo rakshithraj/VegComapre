@@ -50,9 +50,10 @@ public class HomeActivity extends BaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.app_bar_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setLogo(R.mipmap.ic_launcher);
 
         intializeClickListner();
 
@@ -255,6 +256,8 @@ public class HomeActivity extends BaseActivity
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    Utility.alerDialog(HomeActivity.this, HomeActivity.this.getResources().getString(R.string.not_found));
+
                 }
 
             }
@@ -312,6 +315,8 @@ public class HomeActivity extends BaseActivity
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    Utility.alerDialog(HomeActivity.this, HomeActivity.this.getResources().getString(R.string.not_found));
+
                 }
 
             }
