@@ -19,13 +19,12 @@ public class CompareShopAdapter extends RecyclerView.Adapter {
     ArrayList<String> mShopList;
 
     private class CompareShopHolder extends RecyclerView.ViewHolder {
-        TextView tvShopName,tvUnit,tvPrice;
+        TextView tvShopName,tvPriceKg,tvPriceGm;
         public CompareShopHolder(View itemView) {
             super(itemView);
             tvShopName=(TextView) itemView.findViewById(R.id.tvShopName);
-            tvUnit=(TextView) itemView.findViewById(R.id.tvUnit);
-            tvPrice=(TextView) itemView.findViewById(R.id.tvPrice);
-
+            tvPriceKg=(TextView) itemView.findViewById(R.id.tvPriceKg);
+            tvPriceGm=(TextView) itemView.findViewById(R.id.tvPriceGm);
         }
     }
 
@@ -49,7 +48,8 @@ public class CompareShopAdapter extends RecyclerView.Adapter {
             return;
         CompareShopAdapter.CompareShopHolder compareShopHolder=(CompareShopAdapter.CompareShopHolder)holder;
         compareShopHolder.tvShopName.setText(mShopList.get(position));
-        compareShopHolder.tvPrice.setText(": "+price+" Rs");
+        compareShopHolder.tvPriceKg.setText(" "+price.split("-")[0]+" Rs");
+        compareShopHolder.tvPriceGm.setText(" "+price.split("-")[1]+" Rs");
 
     }
 

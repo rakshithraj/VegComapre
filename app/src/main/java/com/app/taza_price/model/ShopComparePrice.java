@@ -9,7 +9,25 @@ import java.util.ArrayList;
 public class ShopComparePrice {
 
     String name;
-    ArrayList<String> price = new  ArrayList<String>();
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public ArrayList<String> getPrice_kg() {
+        return price_kg;
+    }
+
+    public void setPrice_kg(ArrayList<String> price_kg) {
+        this.price_kg = price_kg;
+    }
+
+    String image;
+    ArrayList<String> price_kg = new  ArrayList<String>();
 
     public String getName() {
         return name;
@@ -20,10 +38,10 @@ public class ShopComparePrice {
     }
 
     public ArrayList<String> getPrice() {
-        return price;
+        return price_kg;
     }
 
-    public void setPrice(ArrayList<String> price) {
-        this.price = price;
+    public void setPrice(ArrayList<String> price_kg) {
+        this.price_kg = price_kg;
     }
 }

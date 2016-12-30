@@ -7,7 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 import com.app.taza_price.R;
+import com.app.taza_price.Webservice.AppController;
 import com.app.taza_price.model.ShopComparePrice;
 
 import java.util.ArrayList;
@@ -19,6 +22,7 @@ import java.util.ArrayList;
 public class ComparePriceAdapter extends RecyclerView.Adapter {
     ArrayList<ShopComparePrice> mShopComparePrice;
     ArrayList<String> mShopList;
+    ImageLoader imageLoader;
     public ComparePriceAdapter(ArrayList<ShopComparePrice> shopComparePrice, ArrayList<String> shopList) {
         this.mShopComparePrice=shopComparePrice;
         mShopList=shopList;
@@ -27,10 +31,12 @@ public class ComparePriceAdapter extends RecyclerView.Adapter {
     private class ComparePriceHolder extends RecyclerView.ViewHolder {
         TextView tvName;
         RecyclerView comparePriceList;
+        NetworkImageView image;
         public ComparePriceHolder(View itemView) {
             super(itemView);
             tvName=(TextView)itemView.findViewById(R.id.tvName);
             comparePriceList=(RecyclerView)itemView.findViewById(R.id.comparePriceList);
+            image=(NetworkImageView)itemView.findViewById(R.id.image);
 
         }
     }
@@ -53,6 +59,12 @@ public class ComparePriceAdapter extends RecyclerView.Adapter {
         comparePriceHolder.comparePriceList.setLayoutManager(linearLayoutManager);
         CompareShopAdapter compareShopAdapter = new CompareShopAdapter(shopComparePrice.getPrice(),mShopList);
         comparePriceHolder.comparePriceList.setAdapter(compareShopAdapter);
+
+        if(imageLoader==null)
+            imageLoader= AppController.getInstance().getImageLoader();
+
+        comparePriceHolder.image.setDefaultImageResId(R.mipmap.loading);
+        comparePriceHolder.image.setImageUrl(shopComparePrice.getImage(),imageLoader);
     }
 
     @Override

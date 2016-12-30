@@ -165,7 +165,7 @@ public class PriceListActivity extends BaseActivity {
     public void comparePrice(View view) {
         seletedShopsId.clear();
         AlertDialog dialog = new AlertDialog.Builder(this)
-                .setTitle("Select Shop to be compared with.")
+                .setTitle("Select the following market to compared.")
                 .setMultiChoiceItems(items, null, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int indexSelected, boolean isChecked) {

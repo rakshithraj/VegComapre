@@ -26,11 +26,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import static com.app.taza_price.utility.AppConstants.AREA;
+import static com.app.taza_price.utility.AppConstants.AREA_LIST;
 import static com.app.taza_price.utility.AppConstants.CITY;
 import static com.app.taza_price.utility.AppConstants.STATE;
 import static com.app.taza_price.utility.AppConstants.SUCESS;
@@ -53,7 +55,7 @@ public class HomeActivity extends BaseActivity
         setContentView(R.layout.app_bar_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setLogo(R.mipmap.ic_launcher);
+       // getSupportActionBar().setLogo(R.mipmap.ic_launcher);
 
         intializeClickListner();
 
@@ -64,6 +66,7 @@ public class HomeActivity extends BaseActivity
     @Override
     protected void onResume() {
         super.onResume();
+
         marqueeText1.setText(GcmUtility.getNotificationText(this));
 
         IntentFilter filter = new IntentFilter(NOTIFICATION_ACTION);
@@ -95,7 +98,6 @@ public class HomeActivity extends BaseActivity
 
         switch (v.getId()) {
             case R.id.rlState:
-                marqueeText1.setText("");
                 if (mStateList.size() == 0) {
                     callGetStateApi();
                     return;
@@ -151,6 +153,7 @@ public class HomeActivity extends BaseActivity
                 intent.putExtra(STATE,mStateList.get(selectStateIndex).getState_id());
                 intent.putExtra(CITY,mCityList.get(selectCityIndex).getCity_id());
                 intent.putExtra(AREA,mAreaList.get(selectAreaIndex).getArea_id());
+                intent.putExtra(AREA_LIST,mAreaList);
 
                 startActivity(intent);
 
@@ -433,15 +436,7 @@ public class HomeActivity extends BaseActivity
 
     }
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
+
 
 
 
@@ -491,7 +486,7 @@ public class HomeActivity extends BaseActivity
         }
     }
 
-    class Area {
+    class Area  implements Serializable{
         String area_id;
         String area;
 

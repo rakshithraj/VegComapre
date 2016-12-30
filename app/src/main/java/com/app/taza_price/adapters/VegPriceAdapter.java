@@ -6,7 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 import com.app.taza_price.R;
+import com.app.taza_price.Webservice.AppController;
 import com.app.taza_price.model.VegPriceDetail;
 
 import java.util.ArrayList;
@@ -16,15 +19,18 @@ import java.util.ArrayList;
  */
 
 public class VegPriceAdapter extends RecyclerView.Adapter {
+    ImageLoader imageLoader;
 
     class PriceHolder extends RecyclerView.ViewHolder {
-        TextView tvName,tvUnit,tvPrice;
+        TextView tvName,tvPriceKg,tvPriceGram;
+        NetworkImageView images;
         View view;
         public PriceHolder(View itemView) {
             super(itemView);
             tvName=(TextView)itemView.findViewById(R.id.tvName);
-            tvUnit=(TextView)itemView.findViewById(R.id.tvUnit);
-            tvPrice=(TextView)itemView.findViewById(R.id.tvPrice);
+            tvPriceKg=(TextView)itemView.findViewById(R.id.tvPriceKg);
+            tvPriceGram=(TextView)itemView.findViewById(R.id.tvPriceGram);
+            images=(NetworkImageView)itemView.findViewById(R.id.image);
             view=itemView;
 
         }
@@ -49,10 +55,14 @@ public class VegPriceAdapter extends RecyclerView.Adapter {
             return;
         PriceHolder  priceHolder=(PriceHolder)holder;
         priceHolder.tvName.setText(vegPriceDetail.getVeg_name());
-        priceHolder.tvUnit.setText("1 "+vegPriceDetail.getUnit());
-        priceHolder.tvPrice.setText(vegPriceDetail.getPrice()+" rs");
+        priceHolder.tvPriceKg.setText(" "+vegPriceDetail.getPrice_kg()+" rs");
+        priceHolder.tvPriceGram.setText(" "+vegPriceDetail.getPrice_gm()+" rs");
 
+        if(imageLoader==null)
+            imageLoader= AppController.getInstance().getImageLoader();
 
+        priceHolder.images.setDefaultImageResId(R.mipmap.loading);
+        priceHolder.images.setImageUrl(vegPriceDetail.getImage(),imageLoader);
 
     }
 

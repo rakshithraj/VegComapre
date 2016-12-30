@@ -1,5 +1,7 @@
 package com.app.taza_price;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 import com.app.taza_price.Webservice.ConnectWebService;
 import com.app.taza_price.adapters.ShopListAdapter;
@@ -26,6 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.app.taza_price.utility.AppConstants.AREA;
+import static com.app.taza_price.utility.AppConstants.AREA_LIST;
 import static com.app.taza_price.utility.AppConstants.CITY;
 import static com.app.taza_price.utility.AppConstants.SELECTED_SHOP_ID;
 import static com.app.taza_price.utility.AppConstants.SELECTED_SHOP_NAME;
@@ -39,7 +43,9 @@ public class ShopListActivity extends BaseActivity implements SelectShopInterfac
 
     ArrayList<ShopDetail> mShopDetailList = new ArrayList<ShopDetail>();
     ShopListAdapter shopListAdapter;
+    ArrayList<HomeActivity.Area> mAreaList = new   ArrayList<HomeActivity.Area> ();
 
+    int selectAreaIndex=-1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,10 +57,47 @@ public class ShopListActivity extends BaseActivity implements SelectShopInterfac
         selectState = this.getIntent().getStringExtra(STATE);
         selectCity = this.getIntent().getStringExtra(CITY);
         selectArea = this.getIntent().getStringExtra(AREA);
+        mAreaList= ( ArrayList<HomeActivity.Area>)this.getIntent().getSerializableExtra(AREA_LIST);
+
         intialize();
         callSerachShops();
 
+        findViewById(R.id.rlArea).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showAreaList();
+            }
+        });
+
     }
+
+
+
+    private void showAreaList() {
+        final AlertDialog.Builder ad = new AlertDialog.Builder(this);
+
+        final String list[] = new String[mAreaList.size()];
+        for (int i = 0; i < mAreaList.size(); i++) {
+            list[i] = mAreaList.get(i).getArea();
+        }
+
+        ad.setSingleChoiceItems(list, selectAreaIndex, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+
+                selectAreaIndex = arg1;
+                ((TextView) findViewById(R.id.tvArea)).setText(list[arg1]);
+
+                arg0.dismiss();
+                selectArea=mAreaList.get(selectAreaIndex).getArea_id();
+                callSerachShops();
+
+            }
+        });
+        ad.show();
+    }
+
 
     @Override
     protected void onDestroy() {
@@ -84,6 +127,7 @@ public class ShopListActivity extends BaseActivity implements SelectShopInterfac
 
 
     private void callSerachShops() {
+        ShopListActivity.this.findViewById(R.id.lyRefresh).setVisibility(View.VISIBLE);
 
         ConnectWebService connectWebService = new ConnectWebService();
 
@@ -102,14 +146,25 @@ public class ShopListActivity extends BaseActivity implements SelectShopInterfac
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     String status = jsonObject.getString("status");
-                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+
+
                     if (status.equals(SUCESS)) {
 
-                        Gson gson = new Gson();
-                        mShopDetailList.addAll((ArrayList<ShopDetail>) gson.fromJson(jsonArray.toString(), new TypeToken<ArrayList<ShopDetail>>() {
-                        }.getType()));
+                        boolean flag=true;
+                        try {
+                            flag = jsonObject.getBoolean("data");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        mShopDetailList.clear();
+                        if(flag) {
+                            JSONArray jsonArray = jsonObject.getJSONArray("data");
+                            Gson gson = new Gson();
+                            mShopDetailList.clear();
+                            mShopDetailList.addAll((ArrayList<ShopDetail>) gson.fromJson(jsonArray.toString(), new TypeToken<ArrayList<ShopDetail>>() {
+                            }.getType()));
+                        }
                         shopListAdapter.notifyDataSetChanged();
-                        ;
 
                         ShopListActivity.this.findViewById(R.id.lyRefresh).setVisibility(View.GONE);
                     } else {

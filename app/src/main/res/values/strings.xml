@@ -21,5 +21,7 @@
     <string name="addmob_key">ca-app-pub-7301685186086751/9738151823</string>
     <string name="refersh">Refresh</string>
     <string name="not_found">Shops not added. Search for other location</string>
+    <string name="select_veg">Select Vegitables</string>
+    <string name="select_fruits">Select Fruits</string>
 
 </resources>

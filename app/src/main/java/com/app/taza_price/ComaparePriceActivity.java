@@ -33,7 +33,8 @@ import static com.app.taza_price.utility.AppConstants.SUCESS;
 
 public class ComaparePriceActivity extends BaseActivity {
     final String content[] = {"Vegitables", "Fruits"};
-    final static int VEG = 0, FRUIT = 1;
+    public final static int VEG = 0;
+    final static int FRUIT = 1;
 
     ArrayList<String> seletedShopsId;
     ArrayList<ShopComparePrice> mVegComparePrice = new ArrayList<ShopComparePrice>();
@@ -162,9 +163,9 @@ public class ComaparePriceActivity extends BaseActivity {
             switch (position) {
                 case VEG:
 
-                    return CompareFragment.getNewInstance(mVegComparePrice,mShopList);
+                    return CompareFragment.getNewInstance(mVegComparePrice,mShopList,VEG);
                 case FRUIT:
-                    return CompareFragment.getNewInstance(mFruitComparePrice,mShopList);
+                    return CompareFragment.getNewInstance(mFruitComparePrice,mShopList,FRUIT);
 
 
             }
