@@ -154,6 +154,8 @@ public class GcmUtility {
         final SharedPreferences prefs = getGCMPreferences(context);
         String notification= prefs.getString(NOTIFICATION, "");
         notification=notification.replaceAll(DELIMITER," --- ");
+        if(TextUtils.isEmpty(notification))
+            notification="Welcome to TaazaPrice";
         return  notification;
 
     }

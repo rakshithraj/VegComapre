@@ -6,15 +6,15 @@ package com.app.taza_price.model;
 
 public class VegPriceDetail {
 
-    String price_id;
-    String veggi_id;
-    String shop_id;
-    String price_kg;
-    String price_gm;
-    String unit;
-    String shop_name;
-    String veg_name;
-    String veg_type;
+    String price_id="";
+    String veggi_id="";
+    String shop_id="";
+    String price_kg="";
+    String price_gm="";
+    String unit="";
+    String shop_name="";
+    String veg_name="";
+    String veg_type="";
 
     public String getImage() {
         return image;

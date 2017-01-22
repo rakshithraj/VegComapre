@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class ShopComparePrice {
 
-    String name;
+    String name="";
 
     public String getImage() {
         return image;
@@ -26,7 +26,7 @@ public class ShopComparePrice {
         this.price_kg = price_kg;
     }
 
-    String image;
+    String image="";
     ArrayList<String> price_kg = new  ArrayList<String>();
 
     public String getName() {

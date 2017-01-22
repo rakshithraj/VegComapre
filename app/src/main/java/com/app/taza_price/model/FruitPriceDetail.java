@@ -5,9 +5,9 @@ package com.app.taza_price.model;
  */
 
 public class FruitPriceDetail {
-    String price_id;
-    String  veggi_id;
-    String shop_id;
+    String price_id="";
+    String  veggi_id="";
+    String shop_id="";
 
     public String getPrice_kg() {
         return price_kg;
@@ -25,12 +25,12 @@ public class FruitPriceDetail {
         this.price_gm = price_gm;
     }
 
-    String price_kg;
-    String price_gm;
-    String unit;
-    String shop_name;
-    String veg_name;
-    String veg_type;
+    String price_kg="";
+    String price_gm="";
+    String unit="";
+    String shop_name="";
+    String veg_name="";
+    String veg_type="";
     public String getImage() {
         return image;
     }
@@ -39,7 +39,7 @@ public class FruitPriceDetail {
         this.image = image;
     }
 
-    String image;
+    String image="";
     public String getPrice_id() {
         return price_id;
     }
